@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Calculator from "./screens/Calculator";
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import cyan from "@material-ui/core/colors/cyan";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const theme = createMuiTheme({
+    palette: {
+      primary: {
+        main: cyan[700],
+      },
+      secondary: {
+        main: cyan[800],
+      },
+    },
+  });
+class App extends React.Component {
+  
+  render() {
+   
+    return (
+      <MuiThemeProvider theme={theme}>
+        <div className="Container">
+          <Calculator />
+        </div>
+      </MuiThemeProvider>
+    );
+  }
 }
 
 export default App;
