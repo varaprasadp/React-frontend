@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Fabs from "./components/Fabs";
-
+import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
 const operations = [
   { id: 0, k: "add", sym: "+" },
   { id: 1, k: "sub", sym: "-" },
@@ -32,13 +33,13 @@ function Calculator() {
     if (number2 !== "") {
       switch (operation) {
         case "+":
-          return ` = ${parseInt(number1) + parseInt(number2)}`;
+          return ` ${parseFloat(number1) + parseFloat(number2)}`;
         case "-":
-          return ` = ${parseInt(number1) - parseInt(number2)}`;
+          return ` ${parseFloat(number1) - parseFloat(number2)}`;
         case "*":
-          return ` = ${parseInt(number1) * parseInt(number2)}`;
+          return ` ${parseFloat(number1) * parseFloat(number2)}`;
         case "/":
-          return ` = ${parseInt(number1) / parseInt(number2)}`;
+          return ` ${parseFloat(number1) / parseFloat(number2)}`;
       }
     } else {
       return null;
@@ -66,13 +67,33 @@ function Calculator() {
   ));
   return (
     <Grid item xs={12}>
-      <div className="row">
-        {number1}
-        {operation}
-        {number2}  {result(operation)}
-        <br />
-        <br />
-      </div>
+      <Typography component="div">
+        <div className="row">
+          <Box component="div" my={2} overflow="auto" color="primary.main">
+            {number1}
+          </Box>
+          <Box component="div" my={2} overflow="auto" color="#000000">
+            {operation}
+          </Box>
+          <Box component="div" my={2} overflow="auto" color="primary.main">
+            {number2}
+          </Box>
+          <Box
+            component="div"
+            my={2}
+            overflow="auto"
+            color="#ffffff"
+            style={{ display: number2 === "" && "none" }}
+          >
+            =
+          </Box>
+          <Box component="div" my={2} overflow="auto" color="success.main">
+            {result(operation)}
+          </Box>
+          <br />
+          <br />
+        </div>
+      </Typography>
       <div className="row">
         <div className="column">
           <div>
@@ -94,6 +115,19 @@ function Calculator() {
           <div>{FabOps[2]}</div>
           <div>{FabOps[3]}</div>
         </div>
+      </div>
+      <br />
+      <div className="row" style={{ display: number1 === "" && "none" }}>
+        <Button
+          variant="contained"
+          onClick={() => {
+            setNumber1("");
+            setNumber2("");
+            setOperation("");
+          }}
+        >
+          Reset
+        </Button>
       </div>
     </Grid>
   );
