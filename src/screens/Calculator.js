@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import Fabs from "./components/Fabs";
+import Fabs from "../components/Fabs";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 const operations = [
@@ -40,6 +40,8 @@ function Calculator() {
           return ` ${parseFloat(number1) * parseFloat(number2)}`;
         case "/":
           return ` ${parseFloat(number1) / parseFloat(number2)}`;
+        default :
+          return null;
       }
     } else {
       return null;
