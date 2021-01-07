@@ -4,6 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import Fabs from "../components/Fabs";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
+import Input from "@material-ui/core/Input";
 const operations = [
   { id: 0, k: "add", sym: "+" },
   { id: 1, k: "sub", sym: "-" },
@@ -27,6 +28,7 @@ const keys = [
 
 function Calculator() {
   const [number1, setNumber1] = useState("");
+  const [calculation, setCalculation] = useState("");
   const [number2, setNumber2] = useState("");
   const [operation, setOperation] = useState("");
   const result = (operation) => {
@@ -40,35 +42,63 @@ function Calculator() {
           return ` ${parseFloat(number1) * parseFloat(number2)}`;
         case "/":
           return ` ${parseFloat(number1) / parseFloat(number2)}`;
-        default :
+        default:
           return null;
       }
     } else {
       return null;
     }
   };
+  const handleClick = (value) => {
+    setCalculation((calculation) => calculation.concat(value));
+  };
+  // const FabKeys = keys.map((item) => (
+  //   <Fabs
+  //     key={item.id}
+  //     value={item.k}
+  //     color="primary"
+  //     onClick={() => {
+  //       operation === ""
+  //         ? setNumber1(number1.concat(item.k))
+  //         : setNumber2(number2.concat(item.k));
+  //     }}
+  //   />
+  // ));
   const FabKeys = keys.map((item) => (
     <Fabs
       key={item.id}
       value={item.k}
       color="primary"
-      onClick={() => {
-        operation === ""
-          ? setNumber1(number1.concat(item.k))
-          : setNumber2(number2.concat(item.k));
-      }}
+      onClick={() => handleClick(item.k)}
     />
   ));
+  // const FabOps = operations.map((item) => (
+  //   <Fabs
+  //     key={item.id}
+  //     value={item.k}
+  //     color="secondary"
+  //     onClick={() => setOperation(item.sym)}
+  //   />
+  // ));
   const FabOps = operations.map((item) => (
     <Fabs
       key={item.id}
       value={item.k}
       color="secondary"
-      onClick={() => setOperation(item.sym)}
+      onClick={() => handleClick(item.sym)}
     />
   ));
   return (
     <Grid item xs={12}>
+      <div className="row">
+        <Input
+          value={calculation}
+          onChange={(e) => setCalculation(e.target.value)}
+          autoFocus={true}
+          disableUnderline={true}
+          placeholder="0"
+        />
+      </div>
       <Typography component="div">
         <div className="row">
           <Box component="div" my={2} overflow="auto" color="primary.main">
@@ -80,6 +110,12 @@ function Calculator() {
           <Box component="div" my={2} overflow="auto" color="primary.main">
             {number2}
           </Box>
+          <Box
+            component="div"
+            my={2}
+            overflow="auto"
+            color="primary.main"
+          ></Box>
           <Box
             component="div"
             my={2}
